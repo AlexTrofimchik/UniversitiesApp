@@ -1,7 +1,7 @@
 package by.trafimchyk.universitiesapp.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import by.trafimchyk.universitiesapp.R;
