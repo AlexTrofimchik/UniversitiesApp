@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,13 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 Item university = (Item) universitiesView.getSelectedItem();
                 Geocoder geocoder = new Geocoder(this);
                 try {
-                    List<Address> addresses = geocoder.getFromLocationName(university.getTitle(), 1);
+                    String name = URLEncoder.encode(university.getTitle(), "UTF-8");
+                    List<Address> addresses = geocoder.getFromLocationName(name, 3);
                     if (addresses.isEmpty()) {
                         Toast.makeText(this, "Can't fetch location for selected place", Toast.LENGTH_SHORT).show();
                     } else {
-                        String msg = String.format(Locale.getDefault(), "Location for %s: lat=%f | lng=%f", university.getTitle(),
-                                addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                        MapsActivity.startMapsActivity(this, addresses.get(0));
                     }
                 } catch (IOException e) {
                     Toast.makeText(this, "Can't fetch location for selected place", Toast.LENGTH_SHORT).show();
